@@ -33,7 +33,6 @@ for (const data of dataset) // ca sa executi testul cu date diferite
 customtest('Client App login', async ({page, testDataForOrder})=>// `Client App login for ${data.productName}` - ca sa fie titlul dinamic
  {
    const poManager = new POManager(page);
-    //js file- Login js, DashboardPage
      const products = page.locator(".card-body");
      const loginPage = poManager.getLoginPage();
      await loginPage.goTo();
