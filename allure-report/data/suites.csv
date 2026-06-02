@@ -1,0 +1,4 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","9740","@Mada Client App login for ZARA COAT 3","","2026-05-25","passed","2026-05-25","","ClientAppPO.spec.js","",""
+"","9006","@Mada Client App login for ADIDAS ORIGINAL","","2026-05-25","passed","2026-05-25","","ClientAppPO.spec.js","",""
+"","8340","@Mada Popup validations","","2026-05-25","passed","2026-05-25","","MoreValidations.spec.js","",""
