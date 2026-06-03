@@ -24,7 +24,7 @@ test.beforeAll(async({browser})=>
 test('@API Client App login', async ()=>
 {
     const email = "";
-    const productName = 'Zara Coat 4';
+    const productName = 'Zara Coat 3';
     const page =  await webContext.newPage();
     await page.goto("https://rahulshettyacademy.com/client");
     const products = page.locator(".card-body");
@@ -41,8 +41,8 @@ test('@API Client App login', async ()=>
     }
    }
    await page.locator("[routerlink*='cart']").click();
-   await page.locator("div li").first().waitFor();
-   const bool =await page.locator("h3:has-text('Zara Coat 4')").isVisible();
+   //await page.locator("div li").first().waitFor();
+   const bool =await page.locator("h3:has-text('Zara Coat 3')").isVisible();
    expect(bool).toBeTruthy();
    await page.locator("text=Checkout").click();
    await page.locator("[placeholder*='Country']").type("ind",{delay:100});
