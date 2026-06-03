@@ -83,17 +83,7 @@
     console.log(domain);
     await page.locator("#username").type(domain);
     console.log(await page.locator("#username").textContent());
-
-
-
-
     
-    
-
-
-
-
-
  })
 
 

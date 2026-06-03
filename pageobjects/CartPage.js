@@ -14,7 +14,7 @@ constructor(page)
 
 async VerifyProductIsDisplayed(productName)
 {
-   
+    await this.page.waitForLoadState('networkidle');
     await this.cartProducts.waitFor();
     const bool =await this.getProductLocator(productName).isVisible();
     expect(bool).toBeTruthy();
