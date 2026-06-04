@@ -21,33 +21,36 @@ test.beforeAll(async ({ browser }) => {
 })
 
 test('@API Client App login', async () => {
-    const email = "";
-    const productName = 'Zara Coat 3';
+    const email = "anshika@gmail.com";
+    const productName = 'ZARA COAT 3';
     const page = await webContext.newPage();
     await page.goto("https://rahulshettyacademy.com/client");
     const products = page.locator(".card-body");
     const titles = await page.locator(".card-body b").allTextContents();
     console.log(titles);
     const count = await products.count();
+    const normalizedProductName = productName.trim().toLowerCase();
     for (let i = 0; i < count; ++i) {
-        if (await products.nth(i).locator("b").textContent() === productName) {
-            //add to cart
+        const title = await products.nth(i).locator("b").textContent();
+        if (title && title.trim().toLowerCase() === normalizedProductName) {
             await products.nth(i).locator("text= Add To Cart").click();
             break;
         }
     }
     await page.locator("[routerlink*='cart']").click();
     await page.waitForLoadState('networkidle');
-    await page.locator("div li").first().waitFor();
-    const bool = await page.locator("h3:has-text('Zara Coat 3')").isVisible();
-    expect(bool).toBeTruthy();
+
+    const product = page.locator("h3", { hasText: productName }).first();
+    await expect(product).toBeVisible({ timeout: 15000 });
+    await expect(product).toContainText(productName, { timeout: 15000, ignoreCase: true });
+
     await page.locator("text=Checkout").click();
     await page.locator("[placeholder*='Country']").type("ind", { delay: 100 });
     const dropdown = page.locator(".ta-results");
     await dropdown.waitFor();
-    optionsCount = await dropdown.locator("button").count();
+    const optionsCount = await dropdown.locator("button").count();
     for (let i = 0; i < optionsCount; ++i) {
-        text = await dropdown.locator("button").nth(i).textContent();
+        const text = await dropdown.locator("button").nth(i).textContent();
         if (text === " India") {
             await dropdown.locator("button").nth(i).click();
             break;
@@ -77,8 +80,8 @@ test('@API Client App login', async () => {
 
 });
 test('@API Test case 2', async () => {
-    const email = "";
-    const productName = 'Zara Coat 4';
+    const email = "anshika@gmail.com";
+    const productName = 'ZARA COAT 4';
     const page = await webContext.newPage();
     await page.goto("https://rahulshettyacademy.com/client");
     await page.waitForLoadState('networkidle');

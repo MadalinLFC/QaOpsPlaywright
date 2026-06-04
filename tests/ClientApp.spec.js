@@ -14,25 +14,24 @@
      await page.locator("#userPassword").type("Iamking@000");
      await page.locator("[value='Login']").click();
      await page.waitForLoadState('networkidle');
-    const titles= await page.locator(".card-body b").allTextContents();
+    const titles = await page.locator(".card-body b").allTextContents();
     console.log(titles);
+    const normalizedProductName = productName.trim().toLowerCase();
     const count = await products.count();
-    for(let i =0; i < count; ++i)
-    {
-    if(await products.nth(i).locator("b").textContent() === productName)
-    {
-        //add to cart
-        await products.nth(i).locator("text= Add To Cart").click();
-        break;
-     }
+    for (let i = 0; i < count; ++i) {
+        const title = await products.nth(i).locator("b").textContent();
+        if (title && title.trim().toLowerCase() === normalizedProductName) {
+            await products.nth(i).locator("text= Add To Cart").click();
+            break;
+        }
     }
    
     await page.locator("[routerlink*='cart']").click();
-    //await page.pause();
     await page.waitForLoadState('networkidle');
-    await page.locator("div li").first().waitFor();
-    const bool =await page.locator("h3:has-text('ZARA COAT 3')").isVisible();
-    expect(bool).toBeTruthy();
+
+    const cartProduct = page.locator("li", { hasText: productName }).first();
+    await expect(cartProduct).toBeVisible({ timeout: 15000 });
+    await expect(cartProduct).toContainText(productName, { timeout: 15000, ignoreCase: true });
     await page.locator("text=Checkout").click();
     await page.locator("[placeholder*='Country']").type("ind",{delay:100});
     const dropdown = page.locator(".ta-results");

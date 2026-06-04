@@ -17,18 +17,16 @@ constructor(page:any)
 
 async searchProductAddCart(productName: string)
 {
-   
-    const titles= await this.productsText.allTextContents();
+    const normalizedProductName = productName.trim().toLowerCase();
+    const titles = await this.productsText.allTextContents();
     console.log(titles);
     const count = await this.products.count();
-    for(let i =0; i < count; ++i)
-    {
-    if(await this.products.nth(i).locator("b").textContent() === productName)
-    {
-        //add to cart
-        await this.products.nth(i).locator("text= Add To Cart").click();
-        break;
-     }
+    for (let i = 0; i < count; ++i) {
+        const title = await this.products.nth(i).locator("b").textContent();
+        if (title && title.trim().toLowerCase() === normalizedProductName) {
+            await this.products.nth(i).locator("text= Add To Cart").click();
+            break;
+        }
     }
 }
 
