@@ -21,7 +21,7 @@ class CartPage {
   }
 
   getProductLocator(productName) {
-    return this.page.locator('h3', { hasText: productName });
+    return this.page.locator('.cartSection h3, .cartSection b').filter({ hasText: productName });
   }
 }
 

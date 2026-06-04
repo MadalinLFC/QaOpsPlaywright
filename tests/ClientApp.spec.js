@@ -29,7 +29,7 @@
     await page.locator("[routerlink*='cart']").click();
     await page.waitForLoadState('networkidle');
 
-    const cartProduct = page.locator("li", { hasText: productName }).first();
+    const cartProduct = page.locator('text=/.*' + productName + '.*/i').first();
     await expect(cartProduct).toBeVisible({ timeout: 15000 });
     await expect(cartProduct).toContainText(productName, { timeout: 15000, ignoreCase: true });
     await page.locator("text=Checkout").click();

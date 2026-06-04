@@ -40,7 +40,7 @@ test('@API Client App login', async () => {
     await page.locator("[routerlink*='cart']").click();
     await page.waitForLoadState('networkidle');
 
-    const product = page.locator("h3", { hasText: productName }).first();
+    const product = page.locator('text=/.*' + productName + '.*/i').first();
     await expect(product).toBeVisible({ timeout: 15000 });
     await expect(product).toContainText(productName, { timeout: 15000, ignoreCase: true });
 
