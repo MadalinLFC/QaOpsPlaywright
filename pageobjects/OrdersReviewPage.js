@@ -10,7 +10,7 @@ this.dropdown = page.locator(".ta-results");
 this.emailId = page.locator(".user__name [type='text']").first();
 this.submit =  page.locator(".action__submit");
 this.orderConfirmationText = page.locator(".hero-primary");
-this.orderId = page.locator(".em-spacer-1 .ng-star-inserted");
+this.orderId = page.locator("label.ng-star-inserted", { hasText: '|' }).last();
 
 }
 async searchCountryAndSelect(countryCode,countryName)

@@ -9,6 +9,7 @@
     "APITests": "npx playwright test --grep @API",
     "SafariNewConfig": "npx playwright test --config playwright1.config.js --project=safari",
     "CucumberRegression": "npx cucumber-js --tags '@Regression' --retry 1  --exit --format html:cucumber-report.html",
+    "mcp:server": "node mcp/server.mjs",
     "allure:generate": "allure generate allure-results --clean -o allure-report",
     "allure:open": "allure open allure-report"
   },
@@ -18,10 +19,12 @@
   "devDependencies": {
     "@azure/identity": "^4.13.1",
     "@azure/playwright": "^1.1.5",
+    "@modelcontextprotocol/sdk": "^1.29.0",
     "@playwright/test": "^1.60.0",
     "@types/node": "^25.9.1",
     "allure-playwright": "^3.9.0",
-    "typescript": "^6.0.3"
+    "typescript": "^6.0.3",
+    "zod": "^4.4.3"
   },
   "dependencies": {
     "@cucumber/cucumber": "^12.9.0"
