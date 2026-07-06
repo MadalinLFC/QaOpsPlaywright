@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "regression": "npx playwright test",
+    "AzureTests": "npx playwright test --config=playwright.service.config.js",
     "MadaTests": "npx playwright test --grep @Mada",
     "APITests": "npx playwright test --grep @API",
     "SafariNewConfig": "npx playwright test --config playwright1.config.js --project=safari",
