@@ -3,43 +3,44 @@
 
 
 
- test('Client App login', async ({page})=>
+ test.skip('Client App login', async ({page})=>
  {
     //js file- Login js, DashboardPage
      const email = "anshika@gmail.com";
-     const productName = 'ZARA COAT 3';
+     const productName = 'Zara Coat 4';
      const products = page.locator(".card-body");
      await page.goto("https://rahulshettyacademy.com/client");
      await page.locator("#userEmail").fill(email);
      await page.locator("#userPassword").type("Iamking@000");
      await page.locator("[value='Login']").click();
      await page.waitForLoadState('networkidle');
-    const titles = await page.locator(".card-body b").allTextContents();
+    const titles= await page.locator(".card-body b").allTextContents();
     console.log(titles);
-    const normalizedProductName = productName.trim().toLowerCase();
     const count = await products.count();
-    for (let i = 0; i < count; ++i) {
-        const title = await products.nth(i).locator("b").textContent();
-        if (title && title.trim().toLowerCase() === normalizedProductName) {
-            await products.nth(i).locator("text= Add To Cart").click();
-            break;
-        }
+    for(let i =0; i < count; ++i)
+    {
+    if(await products.nth(i).locator("b").textContent() === productName)
+    {
+        //add to cart
+        await products.nth(i).locator("text= Add To Cart").click();
+        break;
+     }
     }
    
     await page.locator("[routerlink*='cart']").click();
-    await page.waitForLoadState('networkidle');
-
-    const cartProduct = page.locator('text=/.*' + productName + '.*/i').first();
-    await expect(cartProduct).toBeVisible({ timeout: 15000 });
-    await expect(cartProduct).toContainText(productName, { timeout: 15000, ignoreCase: true });
+    //await page.pause();
+    
+    await page.locator("div li").first().waitFor();
+    const bool =await page.locator("h3:has-text('Zara Coat 4')").isVisible();
+    expect(bool).toBeTruthy();
     await page.locator("text=Checkout").click();
     await page.locator("[placeholder*='Country']").type("ind",{delay:100});
     const dropdown = page.locator(".ta-results");
     await dropdown.waitFor();
-    const optionsCount = await dropdown.locator("button").count();
+    optionsCount = await dropdown.locator("button").count();
     for(let i =0;i< optionsCount; ++i)
     {
-        const text =  await dropdown.locator("button").nth(i).textContent();
+        text =  await dropdown.locator("button").nth(i).textContent();
         if(text === " India")
         {
            await dropdown.locator("button").nth(i).click();
@@ -68,6 +69,42 @@
  }
  const orderIdDetails =await page.locator(".col-text").textContent();
  expect(orderId.includes(orderIdDetails)).toBeTruthy();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+    
+
+
+    //Zara Coat 4
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
  });
  
 

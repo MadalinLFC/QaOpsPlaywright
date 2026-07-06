@@ -1,42 +1,26 @@
 class LoginPage {
 
-constructor(page, options = {})
+constructor(page)
 {
     this.page = page;
-    this.loginUrl = options.loginUrl || "https://rahulshettyacademy.com/client";
-    this.userName = page.locator(options.userNameSelector || "#userEmail");
-    this.password = page.locator(options.passwordSelector || "#userPassword");
-    this.signInbutton = page.locator(options.signInSelector || "[value='Login']");
-    this.terms = options.termsSelector ? page.locator(options.termsSelector) : null;
-    this.waitForNetworkIdle = options.waitForNetworkIdle !== false;
+    this.signInbutton= page.locator("[value='Login']");
+    this.userName = page.locator("#userEmail");
+    this.password = page.locator("#userPassword");
+
 }
 
 async goTo()
 {
-    await this.page.goto(this.loginUrl);
+    await this.page.goto("https://rahulshettyacademy.com/client");
 }
 
-async validLogin(username, password)
+async validLogin(username,password)
 {
-    await this.userName.fill(username);
-    await this.password.fill(password);
-    await this.signInbutton.click();
+    await  this.userName.type(username);
+     await this.password.type(password);
+     await this.signInbutton.click();
+     await this.page.waitForLoadState('networkidle');
 
-    if (this.waitForNetworkIdle) {
-        await this.page.waitForLoadState('networkidle');
-    }
-}
-
-async loginWithTerms(username, password)
-{
-    await this.userName.fill(username);
-    await this.password.fill(password);
-
-    if (this.terms) {
-        await this.terms.check();
-    }
-
-    await this.signInbutton.click();
 }
 
 }

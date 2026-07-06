@@ -3,7 +3,7 @@
  const {POManager} = require('../pageobjects/POManager');
  const dataset = JSON.parse(JSON.stringify(require('../utils/ClientAppPOTestData.json')));
 
-for (const data of dataset) // ca sa executi testul cu date diferite prestabilite
+for (const data of dataset) // ca sa executi testul cu date diferite
 {
  test(` @Mada Client App login for ${data.productName}`, async ({page})=>// `Client App login for ${data.productName}` - ca sa fie titlul dinamic
  {
